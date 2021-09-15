@@ -1,6 +1,8 @@
 
 ## Introduction
-This project is a part of semester long project. It is meant to be completed in two semeter( 6th and 7th). So, Below is the progress done so far. In the next semester, I will be working further on the spatial result improvement and integration of the same into a cross-platform  mobile app.
+This project is a part of semester long project.  We are a team of three member working hard to get this app on run. It is meant to be completed in two semeter( 6th and 7th). So, Below is the progress done so far. In the next semester, I will be working further on the spatial result improvement and integration of the same into a cross-platform  mobile app.
+
+**Objective:** Create High resolution spatial map for soil nutrients of an area bounded by geocoordinates.
 
 Soil nutrient details can help farmers immensely in choosing the appropriate crop and using the necessary fertilizers. However, collecting soil nutrient data is very cumbersome and time-consuming. With deteriorating soil health and crop yield, it is essential to come up with better ways to help farmers. Limited and relatively sparse values of soil concentrations can be used to interpolate, estimate and predict nutrient information at all geographic points in the vicinity.
 Soil nutrient data as provided in the Soil Health Cards by the DAC, Govt. of India have been used as the known points in our approach. This dataset contains concentrations of Nitrogen, Potassium, Phosphorus and Organic Compounds at about 25k geolocations. Fig(1) shows their distribution of scaled Nitrogen(N) across Maharashtra, India.
@@ -42,6 +44,18 @@ Once the training is done, we sample all the points within the convex hull and p
 it is clear from the figure that most of the interpolated points are in the positive standard deviation as the left figure is denser than the right one.
 
 
+
+## App prototype
+
+![img](https://lh4.googleusercontent.com/a-DPm_3G2nYOtsPv-mbPVHhxjAmvKEMqEiirbifL3bWs7AL3hFFHv-G2QocjmsE2n-LajTq8ZDLgvqKkE_8i3pITKku9ZdbD_phr6pwgUdPoIbAD4B29ngoqv6XzOUELXbrFTGyG2iU=s0)
+
+![img](https://lh5.googleusercontent.com/dLutpbdwAoZzaHmM9SGiD9R5Q0px80goca_oomM8jP59MjysotlXEB3rzGA2wZ8Ds4xS9e3ui1kWEW2jU3KkSqh3Hkd1KGCNMuDPfBLAAWtd3uhYBWO9XWDVnOXP0-XjrtAsEBGa2v8=s0)
+
+![img](https://lh5.googleusercontent.com/jCzovoiu2fwLHhDqAecVJheV26n2bIsn0kAAfr_YiUH68FxvzSVxubxZbxDW6KG9ddAXHNTag92d4JPYSTIQC5q9GDnGg_Pv70Z8yl6QK8_CXDvX4O6B7qYVfBoSQqN-4nYqeTfY3DA=s0)
+
+![img](https://lh4.googleusercontent.com/AbpmX1CKaDnp6TJ6UIE3Niv_wWU0ss7CJzOfG7IbsT1KPp8d15Ta_MfjnUgN5iCr3Be_9BqZcef1MbqX0TsagY5MdtjqF1tipA8yOFfs_-ZABSkiJKEoJo_FSY9g9kqIf9mG2XyfiQ0=s0)
+
+ You can find the demo [here](https://drive.google.com/file/d/1QifdUypWc6Ed92Oskk3JNOIwa-NeKbxn/view?usp=sharing).
 
 
 
