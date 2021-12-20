@@ -1,8 +1,8 @@
+
 import torch
 import torch.nn as nn
+from batch_mlp import batch_MLP
 
-
-from . import Batch_MLP
 
 class LinearAttention(nn.Module):
     def __init__(self,in_ch, out_ch):
@@ -33,8 +33,8 @@ class AttentionModule(nn.Module):
         # it's output through MLP. 
         if self.rep =='mlp':
             
-            self.batch_mlpk = Batch_MLP(x_dim, hidden_dim, hidden_dim, attn_layers, isnorm ,p)
-            self.batch_mlpq = Batch_MLP(x_dim, hidden_dim, hidden_dim, attn_layers, isnorm, p)
+            self.batch_mlpk = batch_MLP(x_dim, hidden_dim, hidden_dim, attn_layers, isnorm ,p)
+            self.batch_mlpq = batch_MLP(x_dim, hidden_dim, hidden_dim, attn_layers, isnorm, p)
         
         
         if attn_type == 'uniform':
@@ -86,6 +86,7 @@ class AttentionModule(nn.Module):
     
     
     def dot_attn(self, k, q, v):
+  
         β = q.shape[-1]**0.5
         w_unnorm = torch.einsum('bjk,bik->bij', k, q)/β
         
@@ -108,5 +109,3 @@ class AttentionModule(nn.Module):
         rep = self.w(outs) #(B, m, H)
         
         return rep
-    
-    

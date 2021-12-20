@@ -1,10 +1,10 @@
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-#local modules
-from . import  LatentEncoder, DeterministicEncoder, Decoder
-
+from latent_encoder import LatentEncoder
+from deterministic_encoder import DeterministicEncoder
+from decoder import Decoder
 
 
 class LatentModel(nn.Module):
@@ -91,46 +91,34 @@ class LatentModel(nn.Module):
         
         if self.use_deterministic_enc:
             r = self.deterministic_encoder(c_x, c_y, t_x) #(B, n_target=m, H)
+
             representation = torch.cat([r, z], axis = -1) #(B, ld+hd)
         else:
             representation = z
-#  
-            
+
         dist, μ, σ = self.decoder(representation, t_x)
 
         #at test time, target y is not Known so we return None
         if t_y is not None:
+
             log_p = dist.log_prob(t_y) #(B, m, 1)
             
             kl_loss = torch.distributions.kl_divergence(dist_posterior, dist_prior).sum(dim = -1, keepdim = True)
-            kl_loss = torch.tile(kl_loss, [1, n_target])[:,:, None]
+
+            kl_loss = kl_loss.repeat([1, n_target])[:,:, None]
+
 
             loss  = -(torch.mean(log_p - kl_loss/n_target))
 
             mse_loss = F.mse_loss(dist.loc, t_y, reduction = 'none')[:,:c_x.size(1)].mean()
+
         else:
             kl_loss = None
             log_p = None
             mse_loss = None
             loss = None
             
-        y_pred =  dist.loc
+        y_pred = μ
             
         return y_pred,  dict(loss = loss, loss_p = log_p, loss_kl = kl_loss, mse_loss = mse_loss), dist
 
-
-
-Regressor = LatentModel(2,1,
-                    p_drop = 0.0,
-                    p_attn_drop=0.5,
-                    hidden_dim = 128,
-                    latent_dim = 128,
-                    n_decoder_layer = 4,
-                    n_lat_enc_layer=4,
-                    n_det_enc_layer=4,
-                    n_multiheads = 1,
-                    isnorm = True,
-                    use_self_attn=True,
-                    use_deterministic_enc=True,
-                    context_in_target= False
-                        )
